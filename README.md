@@ -21,7 +21,6 @@
 
 
 * __Code:__
-    - [ Accelerometer.cs](#accelerometer)
     - [ Animation.cs](#animation)
     - [ AnimationPlayer.cs](#animationplayer)  
     - [ Circle.cs](#circle)
@@ -31,7 +30,7 @@
     - [ Player.cs](#player)
     - [ RectangleExtensions.cs](#rectangleextensions)
     - [ Tile.cs](#tile)
-    - [ TouchCollectionExtensions.cs](#touchcollectionextensions)
+    
   
       
  __Code:__ É uma pasta com o código-fonte do jogo.
@@ -40,62 +39,6 @@
 # __Interpretação do Código-Fonte__
 
 
-<a name="accelerometer"></a>
-
-## 	__Accelerometer.cs:__
-
-```
-
-
-namespace Platformer2D
-{
-    public static class Accelerometer
-    {
-        
-        private static bool isInitialized = false;
-        private static bool isActive = false;
-        public static void Initialize()
-        {
-            if (isInitialized)
-            {
-                throw new InvalidOperationException("Initialize can only be called once");
-            }
-            isInitialized = true;
-        }
-
-        public static AccelerometerState GetState()
-        {
-            if (!isInitialized)
-            {
-                throw new InvalidOperationException("You must Initialize before you can call GetState");
-            }
-
-            Vector3 stateValue = new Vector3();
-
-            return new AccelerometerState(stateValue, isActive);
-        }
-    }
-
-    public struct AccelerometerState
-    {
-        public Vector3 Acceleration { get; private set; }
-
-        public bool IsActive { get; private set; }
-        public AccelerometerState(Vector3 acceleration, bool isActive)
-            : this()
-        {
-            Acceleration = acceleration;
-            IsActive = isActive;
-        }
-
-        public override string ToString()
-        {
-            return string.Format("Acceleration: {0}, IsActive: {1}", Acceleration, IsActive);
-        }
-    }
-}
-
-```
 <a name="animation"></a>
 ## 	__Animation.cs:__
 
@@ -1312,30 +1255,3 @@ namespace Platformer2D
 
 
 ```
-<a name="touchcollectionextensions"></a>
-## 	__TouchCollectionExtensions.cs:__
-
-```
-
-using Microsoft.Xna.Framework.Input.Touch;
-
-namespace Platformer2D
-{
-    public static class TouchCollectionExtensions
-    {
-        public static bool AnyTouch(this TouchCollection touchState)
-        {
-            foreach (TouchLocation location in touchState)
-            {
-                if (location.State == TouchLocationState.Pressed || location.State == TouchLocationState.Moved)
-                {
-                    return true;
-                }
-            }
-            return false;
-        }
-    }
-}
-
-
-
