@@ -43,7 +43,6 @@
 ## 	__Animation.cs:__
 
 ```
-
 using System;
 using Microsoft.Xna.Framework.Graphics;
 
