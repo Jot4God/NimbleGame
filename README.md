@@ -14,9 +14,17 @@
 
 # __Introdução__
 
-NimbleGame é um jogo 2D desenvolvido em MonoGame com a linguagem C#. Nele, os jogadores enfrentam desafios estilo Mario, desde monstros a saltos precisos, enquanto buscam chegar ao final do jogo e coletar moedas para maximizar sua pontuação. Com folhas de sprites de alta qualidade, efeitos sonoros envolventes e outros recursos que garantem uma experiência realista, NimbleGame promete diversão e adrenalina para os fãs de jogos de plataforma 2D.
+NimbleGame é um jogo 2D desenvolvido em MonoGame com a linguagem C#. Nele, os jogadores enfrentam desafios estilo Mario, desde monstros a saltos precisos, enquanto buscam chegar ao final do jogo e coletar moedas para maximizar sua pontuação no menor tempo possivel. Com folhas de sprites de alta qualidade, efeitos sonoros envolventes e outros recursos que garantem uma experiência realista, NimbleGame promete diversão e adrenalina para os fãs de jogos de plataforma 2D.
 
+<a name="procedimentos"></a>
+# __Procedimentos do Jogo__
 
+* __Objetivo:__
+    - Passar as Fases todas com a maior pontuaçao possivel e no menor tempo possivel
+* __Controlos:__
+    - Utilizar as teclas WASD ou as setas do teclado
+* __Score:__
+    - Com mais coins e menos tempo maior será o score
 
 
 * __Code:__
