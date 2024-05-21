@@ -21,7 +21,7 @@
 
 
 * __Code:__
-    - [ Program.cs](#program)
+    - [ Accelerometer.cs](#Accelerometer)
     - [ Bar.cs](#bar)
     - [ Ball.cs](#ball)  
     - [ CpuController.cs](#cpucontroller)
@@ -32,6 +32,9 @@
  __Code:__ É uma pasta com o código-fonte do jogo.
 
 # __Interpretação do Código-Fonte__
+
+
+<a name="accelerometer"></a>
 
 ## 	__Accelerometer.cs:__
 
