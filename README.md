@@ -8,7 +8,7 @@
 # __Indíce__
 1. [__Introdução__](#Introdução)
 2. [__Procedimentos do Jogo__](#procedimentos)
-3. [__Implementação__](#Implementação)
+3. [__Implementação__](#Implementaçao)
 4. [__Interpretação do Código-Fonte__](#analise)
 5. [__Conclusão__](#Conclusão)
 
@@ -25,7 +25,9 @@ NimbleGame é um jogo 2D desenvolvido em MonoGame com a linguagem C#. Nele, os j
     - Utilizar as teclas WASD ou as setas do teclado
 * __Score:__
     - Com mais coins e menos tempo maior será o score
-
+    - 
+<a name="implementaçao"></a>
+# __Implementação__
 
 * __Code:__
     - [ Animation.cs](#animation)
