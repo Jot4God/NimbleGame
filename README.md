@@ -109,6 +109,11 @@ namespace Platformer2D
 
 <a name="animationplayer"></a>
 ## 	__AnimationPlayer.cs:__
+Este código define uma estrutura AnimationPlayer que controla a reprodução de uma animação no contexto de um jogo 2D utilizando a plataforma Microsoft XNA. A estrutura possui uma propriedade Animation que retorna a animação atualmente em reprodução e uma propriedade FrameIndex que indica o índice do frame atual.
+A variável time guarda o tempo decorrido em segundos que o frame atual foi exibido. A propriedade Origin calcula a origem da textura no centro inferior de cada frame.
+O método PlayAnimation(Animation animation) inicia ou continua a reprodução de uma animação, reiniciando a animação apenas se uma nova animação for passada. O método Draw(GameTime gameTime, SpriteBatch spriteBatch, Vector2 position, SpriteEffects spriteEffects) avança o tempo, atualiza o frame atual da animação com base no tempo decorrido e desenha o frame atual na posição especificada. Se a animação estiver configurada para loop, o índice do frame é reiniciado no final; caso contrário, é fixado no último frame.
+Em resumo, a estrutura AnimationPlayer gerencia a reprodução de animações, lidando com a transição dos frames e desenhando o frame atual na tela, garantindo um controle eficiente da animação em jogos 2D
+
 
 
 ```
@@ -179,6 +184,10 @@ namespace Platformer2D
 ```
 <a name="circle"></a>
 ## 	__Circle.cs:__
+Este código define uma estrutura Circle que representa um círculo 2D no contexto de um jogo utilizando a plataforma Microsoft XNA. A estrutura possui duas propriedades públicas: Center, que representa a posição central do círculo, e Radius, que representa o raio do círculo.
+O construtor Circle(Vector2 position, float radius) inicializa o círculo com a posição central e o raio fornecidos.
+A estrutura também inclui o método Intersects(Rectangle rectangle), que determina se o círculo intersecciona com um retângulo dado. O método calcula se há uma sobreposição entre o círculo e o retângulo, retornando true se houver interseção e false caso contrário.
+Em resumo, a estrutura Circle fornece uma representação simples de um círculo 2D, com funcionalidades para inicialização e verificação de interseção com retângulos.
 
 ```
 using System;
@@ -214,6 +223,7 @@ namespace Platformer2D
 ```
 <a name="enemy"></a>
 ## 	__Enemy.cs:__
+A classe Enemy define um inimigo que se move de um lado para o outro numa plataforma, mudando de direção ao encontrar obstáculos ou ao chegar ao fim da plataforma. Esta classe gere a animação e a posição do inimigo, assegurando que ele se comporte de maneira adequada no contexto do jogo. O inimigo alterna entre as animações de corrida e inatividade dependendo do seu estado atual e da interação com o jogador e o ambiente do jogo.
 
 ```
 using System;
@@ -348,6 +358,7 @@ namespace Platformer2D
 ```
 <a name="gem"></a>
 ## 	__Gem.cs:__
+O código define a classe Gem para representar um item valioso que o jogador pode recolher num jogo 2D desenvolvido com a plataforma Microsoft XNA. A gema tem uma textura, uma posição no mundo do jogo e um efeito sonoro associado à sua recolha. Ela pode ser desenhada na tela e tem um movimento de salto no ar para atrair a atenção do jogador. Quando recolhida, reproduz um som e concede pontos ao jogador. Essencialmente, a classe encapsula a lógica para criar e manipular gemas no jogo.
 
 ```
 
@@ -432,6 +443,7 @@ namespace Platformer2D
 ```
 <a name="level"></a>
 ## 	__Level.cs:__
+A classe Level representa um nível num jogo de plataforma 2D desenvolvido com a plataforma Microsoft XNA. Ela gerencia a estrutura física do nível, incluindo a disposição dos blocos de terreno, a localização do jogador, inimigos, gemas e a saída. Além disso, controla a lógica do jogo, como verificar colisões, atualizar o estado dos objetos no mundo, calcular a pontuação do jogador e verificar se o jogador alcançou a saída do nível. O nível também lida com o carregamento de conteúdo, como texturas e sons, e a renderização dos elementos na tela. É essencialmente o coração do jogo, onde todas as interações e eventos acontecem.
 
 ```
 
@@ -829,6 +841,10 @@ namespace Platformer2D
 ```
 <a name="player"></a>
 ## 	__Player.cs:__
+A classe Player gerencia todas as interações e comportamentos do personagem jogador em um jogo de plataforma 2D. Isso inclui controle de animações para ações como parar, correr, pular, celebrar e morrer. Além disso, ela controla a física do jogador, lidando com movimento horizontal e vertical, pulos, e detecção e resolução de colisões com o ambiente do jogo, como plataformas e obstáculos.
+O jogador pode se mover horizontalmente usando controles analógicos, teclado ou gamepad, e pular usando botões específicos. A altura e duração do pulo são ajustadas para oferecer ao jogador mais controle sobre o salto.
+A classe Player também gerencia o estado do jogador, incluindo se está vivo, se está no chão e sua posição atual. Além disso, ela carrega e reproduz sons correspondentes às ações do jogador, como pular, cair e ser morto, e desenha o jogador na tela com base em sua posição e animação atual. Em suma, é responsável por todas as interações relacionadas ao jogador no jogo de plataforma 2D
+
 
 ```
 using System;
@@ -1184,6 +1200,7 @@ namespace Platformer2D
 ```
 <a name="rectangleextensions"></a>
 ## 	__RectangleExtensions.cs:__
+A classe RectangleExtensions oferece métodos úteis para trabalhar com retângulos em um ambiente de jogo 2D. O método GetIntersectionDepth calcula a profundidade da interseção entre dois retângulos, retornando um vetor que indica o quanto eles se sobrepõem em cada eixo. Isso permite determinar a direção correta para empurrar objetos a fim de resolver colisões. O método GetBottomCenter retorna a posição do centro da borda inferior do retângulo. Esses métodos são úteis para detecção e resolução de colisões entre objetos no jogo.
 
 ```
 using System;
@@ -1227,6 +1244,8 @@ namespace Platformer2D
 ```
 <a name="tile"></a>
 ## 	__Tile.cs:__
+Este excerto de código define uma estrutura Tile e um TileCollision utilizados para representar os diferentes tipos de blocos. A estrutura Tile tem dois campos: Texture, que guarda a textura do bloco, e Collision, que indica o tipo de colisão do bloco (Passable, Impassable ou Platform). A estrutura também define as dimensões padrão de um bloco (Width e Height) e disponibiliza a constante Size para facilitar o acesso às dimensões. O enum TileCollision especifica os possíveis tipos de colisão que um bloco pode ter, como Passable (transponível), Impassable (impossível de transpor) e Platform (plataforma). Estes elementos são úteis para a construção e gestão do ambiente do jogo, permitindo a definição de diferentes comportamentos e interações com os blocos.
+
 
 ```
 using System;
