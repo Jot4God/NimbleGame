@@ -56,7 +56,7 @@ Este código define uma classe Animation para representar uma textura animada no
 using System;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace Platformer2D
+namespace NimbleGame
 {
 
     class Animation
@@ -121,7 +121,7 @@ using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace Platformer2D
+namespace NimbleGame
 {
     struct AnimationPlayer
     {
@@ -193,7 +193,7 @@ Em resumo, a estrutura Circle fornece uma representação simples de um círculo
 using System;
 using Microsoft.Xna.Framework;
 
-namespace Platformer2D
+namespace NimbleGame
 {
     struct Circle
     {
@@ -230,7 +230,7 @@ using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace Platformer2D
+namespace NimbleGame
 {
     enum FaceDirection
     {
@@ -367,7 +367,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Audio;
 
-namespace Platformer2D
+namespace NimbleGame
 {
     class Gem
     {
@@ -456,7 +456,7 @@ using Microsoft.Xna.Framework.Audio;
 using System.IO;
 using Microsoft.Xna.Framework.Input;
 
-namespace Platformer2D
+namespace NimbleGame
 {
     class Level : IDisposable
     {
@@ -853,7 +853,7 @@ using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
-namespace Platformer2D
+namespace NimbleGame
 {
     class Player
     {
@@ -1206,7 +1206,7 @@ A classe RectangleExtensions oferece métodos úteis para trabalhar com retângu
 using System;
 using Microsoft.Xna.Framework;
 
-namespace Platformer2D
+namespace NimbleGame
 {
 
     public static class RectangleExtensions
@@ -1252,7 +1252,7 @@ using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace Platformer2D
+namespace NimbleGame
 {
     enum TileCollision
     {
