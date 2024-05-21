@@ -1284,5 +1284,8 @@ namespace NimbleGame
 
 ```
 <a name="conclusao"></a>
-
-# __Conclusão__
+# __Conclusão:__
+Em suma, o desenvolvimento deste jogo para além de nos mostrar uma parte desconhecida no processo criativo do jogo, por vezes em certos momentos pode ser stressante. Apesar disso, o desenvolvimento do NimbleGame foi um trabalho extremamente interessante e pertinente para o curso. Este projeto não apenas proporcionou uma oportunidade prática para aplicar conceitos de programação em C# e o uso do framework MonoGame, como também permitiu explorar áreas como design de sprites, efeitos sonoros e mecânicas de jogo. 
+<p align="center">
+ <img src=""  alt="PongPc" width=300>
+</p>
