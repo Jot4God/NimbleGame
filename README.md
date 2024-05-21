@@ -14,8 +14,7 @@
 
 # __Introdução__
 
-É composto por uma classe representa uma barra de jogo no Pong, que inclui métodos para mover a barra, controlar a velocidade da mesma e obter informações sobre a sua posição e textura. Através de uma breve análise, o primeiro bloco representa as declarações das variáveis que têm a função de guardar o efeito sonoro, a textura, a altura do mundo, a posição horizontal e vertical da barra e a posição vetical anterior, respetivamente. De seguida, estão presentes as constantes relativas à dimensão da barra, altura e largura e também o comprimento inicial, atual e máximo. No bloco de código seguinte, inicia-se a contrução da barra com os respetivos aspetos antes referidos. Por fim é adicionada a lógica para aumentar a velocidade da barra, para dar reset à velocidade, resets às posições iniciais, para mover para cima e para baixo, reset à textura, à posição anterior, ao centro da barra e a reprodução dos efeitos sonoros, respetivamente.
-
+NimbleGame é um jogo 2D desenvolvido em MonoGame com a linguagem C#. Nele, os jogadores enfrentam desafios estilo Mario, desde monstros a saltos precisos, enquanto buscam chegar ao final do jogo e coletar moedas para maximizar sua pontuação. Com folhas de sprites de alta qualidade, efeitos sonoros envolventes e outros recursos que garantem uma experiência realista, NimbleGame promete diversão e adrenalina para os fãs de jogos de plataforma 2D.
 
 
 
