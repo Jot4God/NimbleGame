@@ -25,7 +25,7 @@ NimbleGame é um jogo 2D desenvolvido em MonoGame com a linguagem C#. Nele, os j
     - Utilizar as teclas WASD ou as setas do teclado
 * __Score:__
     - Com mais coins e menos tempo maior será o score
-    - 
+      
 <a name="implementaçao"></a>
 # __Implementação__
 
