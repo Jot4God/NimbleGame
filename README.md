@@ -1,6 +1,6 @@
 # Trabalho Prático 02
 
-#### NimbleGame Desenvolvido MonoGame com C# 
+#### NimbleGame Desenvolvido em MonoGame com C# 
   
 ##### Engenharia e Desenvolvimento de Jogos Digitais - Técnicas de Desenvolvimento de Videojogos 
 ###### Gabriel Rosas nº27943 / Ricardo Costa nº27927 / João Reis 27917 
