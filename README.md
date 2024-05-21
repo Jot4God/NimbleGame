@@ -21,13 +21,18 @@
 
 
 * __Code:__
-    - [ Accelerometer.cs](#Accelerometer)
-    - [ Bar.cs](#bar)
-    - [ Ball.cs](#ball)  
-    - [ CpuController.cs](#cpucontroller)
-    - [ Game1.cs](#game1)
-    - [ Score.cs](#score)
-    - [ BallOutManager.cs](#balloutmanager)
+    - [ Accelerometer.cs](#accelerometer)
+    - [ Animation.cs](#animation)
+    - [ AnimationPlayer.cs](#animationplayer)  
+    - [ Circle.cs](#circle)
+    - [ Enemy.cs](#enemy)
+    - [ Gem.cs](#gem)
+    - [ Level.cs](#level)
+    - [ Player.cs](#player)
+    - [ RectangleExtensions.cs](#rectangleextensions)
+    - [ Tile.cs](#tile)
+    - [ TouchCollectionExtensions.cs](#touchcollectionextensions)
+  
       
  __Code:__ É uma pasta com o código-fonte do jogo.
 
@@ -90,7 +95,7 @@ namespace Platformer2D
 }
 
 ```
-
+<a name="animation"></a>
 ## 	__Animation.cs:__
 
 ```
@@ -149,7 +154,7 @@ namespace Platformer2D
 }
 ```
 
-
+<a name="animationplayer"></a>
 ## 	__AnimationPlayer.cs:__
 
 
@@ -219,6 +224,7 @@ namespace Platformer2D
 }
 
 ```
+<a name="circle"></a>
 ## 	__Circle.cs:__
 
 ```
@@ -253,6 +259,7 @@ namespace Platformer2D
 }
 
 ```
+<a name="enemy"></a>
 ## 	__Enemy.cs:__
 
 ```
@@ -386,6 +393,7 @@ namespace Platformer2D
 
 
 ```
+<a name="gem"></a>
 ## 	__Gem.cs:__
 
 ```
@@ -469,6 +477,7 @@ namespace Platformer2D
 }
 
 ```
+<a name="level"></a>
 ## 	__Level.cs:__
 
 ```
@@ -865,6 +874,7 @@ namespace Platformer2D
 }
 
 ```
+<a name="player"></a>
 ## 	__Player.cs:__
 
 ```
@@ -1219,6 +1229,7 @@ namespace Platformer2D
 }
 
 ```
+<a name="rectangleextensions"></a>
 ## 	__RectangleExtensions.cs:__
 
 ```
@@ -1261,6 +1272,7 @@ namespace Platformer2D
 }
 
 ```
+<a name="tile"></a>
 ## 	__Tile.cs:__
 
 ```
@@ -1299,6 +1311,7 @@ namespace Platformer2D
 
 
 ```
+<a name="touchcollectionextensions"></a>
 ## 	__TouchCollectionExtensions.cs:__
 
 ```
