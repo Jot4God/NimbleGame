@@ -36,6 +36,7 @@
       
  __Code:__ É uma pasta com o código-fonte do jogo.
 
+<a name="analise"></a>
 # __Interpretação do Código-Fonte__
 
 
