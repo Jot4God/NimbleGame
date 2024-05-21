@@ -20,9 +20,18 @@
 
 
 
+* __Code:__
+    - [ Program.cs](#program)
+    - [ Bar.cs](#bar)
+    - [ Ball.cs](#ball)  
+    - [ CpuController.cs](#cpucontroller)
+    - [ Game1.cs](#game1)
+    - [ Score.cs](#score)
+    - [ BallOutManager.cs](#balloutmanager)
+      
+ __Code:__ É uma pasta com o código-fonte do jogo.
 
-
-
+# __Interpretação do Código-Fonte__
 
 ## 	__Accelerometer.cs:__
 
