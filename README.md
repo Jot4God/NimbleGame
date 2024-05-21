@@ -50,6 +50,7 @@ NimbleGame é um jogo 2D desenvolvido em MonoGame com a linguagem C#. Nele, os j
 
 <a name="animation"></a>
 ## 	__Animation.cs:__
+Este código define uma classe Animation para representar uma textura animada no contexto de um jogo 2D utilizando a plataforma Microsoft XNA. A classe assume que cada frame da animação é quadrado e calcula o número de frames com base nessa suposição. A propriedade Texture armazena todas as frames da animação dispostas horizontalmente. A propriedade FrameTime especifica a duração de exibição de cada frame, enquanto IsLooping indica se a animação deve reiniciar ao alcançar o fim. A classe também inclui as propriedades FrameCount, FrameWidth e FrameHeight para obter o número de frames, a largura e a altura de cada frame, respectivamente. O construtor da classe inicializa estas propriedades recebendo como parâmetros a textura, o tempo de frame e o indicador de looping.
 
 ```
 using System;
