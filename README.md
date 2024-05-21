@@ -10,7 +10,7 @@
 2. [__Procedimentos do Jogo__](#procedimentos)
 3. [__Implementação__](#Implementaçao)
 4. [__Interpretação do Código-Fonte__](#analise)
-5. [__Conclusão__](#Conclusão)
+5. [__Conclusão__](#conclusao)
 
 # __Introdução__
 
@@ -1283,3 +1283,6 @@ namespace NimbleGame
 
 
 ```
+<a name="conclusao"></a>
+
+# __Conclusão__
