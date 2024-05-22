@@ -516,7 +516,6 @@ namespace NimbleGame
             idleAnimation = new Animation(Level.Content.Load<Texture2D>(spriteSet + "Idle"), 0.15f, true);
             sprite.PlayAnimation(idleAnimation);
 
-            // Calculate bounds within texture size.
             int width = (int)(idleAnimation.FrameWidth * 0.35);
             int left = (idleAnimation.FrameWidth - width) / 2;
             int height = (int)(idleAnimation.FrameHeight * 0.7);
@@ -539,7 +538,6 @@ namespace NimbleGame
                 waitTime = Math.Max(0.0f, waitTime - (float)gameTime.ElapsedGameTime.TotalSeconds);
                 if (waitTime <= 0.0f)
                 {
-                    // Then turn around.
                     direction = (FaceDirection)(-(int)direction);
                 }
             }
@@ -726,7 +724,7 @@ namespace NimbleGame
     class Level : IDisposable
     {
         private Tile[,] tiles;
-        private Texture2D[] layers;
+        private Layer[] layers;
         private const int EntityLayer = 2;
 
         public Player Player
@@ -737,11 +735,14 @@ namespace NimbleGame
 
         private List<Gem> gems = new List<Gem>();
         private List<Enemy> enemies = new List<Enemy>();
-      
+
         private Vector2 start;
         private Point exit = InvalidPosition;
         private static readonly Point InvalidPosition = new Point(-1, -1);
+
         private Random random = new Random(354668); // Arbitrary, but constant seed
+        public float cameraPosition;
+
 
         public int Score
         {
@@ -762,7 +763,7 @@ namespace NimbleGame
         TimeSpan timeRemaining;
 
         private const int PointsPerSecond = 5;
-     
+
         public ContentManager Content
         {
             get { return content; }
@@ -781,15 +782,13 @@ namespace NimbleGame
 
             LoadTiles(fileStream);
 
-            layers = new Texture2D[3];
-            for (int i = 0; i < layers.Length; ++i)
-            {
-                int segmentIndex = levelIndex;
-                layers[i] = Content.Load<Texture2D>("Backgrounds/Layer" + i + "_" + segmentIndex);
-            }
+            layers = new Layer[3];
+            layers[0] = new Layer(Content, "Backgrounds/Layer0", 0.2f);
+            layers[1] = new Layer(Content, "Backgrounds/Layer1", 0.5f);
+            layers[2] = new Layer(Content, "Backgrounds/Layer2", 0.8f);
+
             exitReachedSound = Content.Load<SoundEffect>("Sounds/ExitReached");
         }
-
         private void LoadTiles(Stream fileStream)
         {
             int width;
@@ -829,18 +828,23 @@ namespace NimbleGame
         {
             switch (tileType)
             {
+                // Blank space
                 case '.':
                     return new Tile(null, TileCollision.Passable);
 
+                // Exit
                 case 'X':
                     return LoadExitTile(x, y);
 
+                // Gem
                 case 'G':
                     return LoadGemTile(x, y);
 
+                // Floating platform
                 case '-':
                     return LoadTile("Platform", TileCollision.Platform);
 
+                // Various enemies
                 case 'A':
                     return LoadEnemyTile(x, y, "MonsterA");
                 case 'B':
@@ -850,35 +854,37 @@ namespace NimbleGame
                 case 'D':
                     return LoadEnemyTile(x, y, "MonsterD");
 
+                // Platform block
                 case '~':
                     return LoadVarietyTile("BlockB", 2, TileCollision.Platform);
 
+                // Passable block
                 case ':':
                     return LoadVarietyTile("BlockB", 2, TileCollision.Passable);
 
+                // Player 1 start point
                 case '1':
                     return LoadStartTile(x, y);
 
+                // Impassable block
                 case '#':
                     return LoadVarietyTile("BlockA", 7, TileCollision.Impassable);
 
+                // Unknown tile type character
                 default:
                     throw new NotSupportedException(String.Format("Unsupported tile type character '{0}' at position {1}, {2}.", tileType, x, y));
             }
         }
 
-     
         private Tile LoadTile(string name, TileCollision collision)
         {
             return new Tile(Content.Load<Texture2D>("Tiles/" + name), collision);
         }
-
         private Tile LoadVarietyTile(string baseName, int variationCount, TileCollision collision)
         {
             int index = random.Next(variationCount);
             return LoadTile(baseName + index, collision);
         }
-
 
         private Tile LoadStartTile(int x, int y)
         {
@@ -890,7 +896,6 @@ namespace NimbleGame
 
             return new Tile(null, TileCollision.Passable);
         }
-
         private Tile LoadExitTile(int x, int y)
         {
             if (exit != InvalidPosition)
@@ -908,6 +913,7 @@ namespace NimbleGame
 
             return new Tile(null, TileCollision.Passable);
         }
+
         private Tile LoadGemTile(int x, int y)
         {
             Point position = GetBounds(x, y).Center;
@@ -927,29 +933,22 @@ namespace NimbleGame
 
         public TileCollision GetCollision(int x, int y)
         {
-            
             if (x < 0 || x >= Width)
                 return TileCollision.Impassable;
-            
             if (y < 0 || y >= Height)
                 return TileCollision.Passable;
 
             return tiles[x, y].Collision;
         }
-
-         
+ 
         public Rectangle GetBounds(int x, int y)
         {
             return new Rectangle(x * Tile.Width, y * Tile.Height, Tile.Width, Tile.Height);
         }
-
-     
         public int Width
         {
             get { return tiles.GetLength(0); }
         }
-
-       
         public int Height
         {
             get { return tiles.GetLength(1); }
@@ -961,20 +960,15 @@ namespace NimbleGame
 
         public void Update(
             GameTime gameTime, 
-            KeyboardState keyboardState, 
-            GamePadState gamePadState, 
-            AccelerometerState accelState,
+            KeyboardState keyboardState,
             DisplayOrientation orientation)
         {
-            
             if (!Player.IsAlive || TimeRemaining == TimeSpan.Zero)
             {
-                
                 Player.ApplyPhysics(gameTime);
             }
             else if (ReachedExit)
             {
-              
                 int seconds = (int)Math.Round(gameTime.ElapsedGameTime.TotalSeconds * 100.0f);
                 seconds = Math.Min(seconds, (int)Math.Ceiling(TimeRemaining.TotalSeconds));
                 timeRemaining -= TimeSpan.FromSeconds(seconds);
@@ -983,10 +977,9 @@ namespace NimbleGame
             else
             {
                 timeRemaining -= gameTime.ElapsedGameTime;
-                Player.Update(gameTime, keyboardState, gamePadState, accelState, orientation);
+                Player.Update(gameTime, keyboardState, orientation);
                 UpdateGems(gameTime);
 
-              
                 if (Player.BoundingRectangle.Top >= Height * Tile.Height)
                     OnPlayerKilled(null);
 
@@ -1009,8 +1002,6 @@ namespace NimbleGame
             for (int i = 0; i < gems.Count; ++i)
             {
                 Gem gem = gems[i];
-
-                gem.Update(gameTime);
 
                 if (gem.BoundingCircle.Intersects(Player.BoundingRectangle))
                 {
@@ -1063,8 +1054,14 @@ namespace NimbleGame
 
         public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
+            spriteBatch.Begin();
             for (int i = 0; i <= EntityLayer; ++i)
-                spriteBatch.Draw(layers[i], Vector2.Zero, Color.White);
+                layers[i].Draw(spriteBatch, cameraPosition);
+            spriteBatch.End();
+
+            ScrollCamera(spriteBatch.GraphicsDevice.Viewport);
+            Matrix cameraTransform = Matrix.CreateTranslation(-cameraPosition, 0.0f, 0.0f);
+            spriteBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend, transformMatrix: cameraTransform);
 
             DrawTiles(spriteBatch);
 
@@ -1076,27 +1073,46 @@ namespace NimbleGame
             foreach (Enemy enemy in enemies)
                 enemy.Draw(gameTime, spriteBatch);
 
-            for (int i = EntityLayer + 1; i < layers.Length; ++i)
-                spriteBatch.Draw(layers[i], Vector2.Zero, Color.White);
-        }
+            spriteBatch.End();
 
+            spriteBatch.Begin();
+            for (int i = EntityLayer + 1; i < layers.Length; ++i)
+                layers[i].Draw(spriteBatch, cameraPosition);
+            spriteBatch.End();
+        }
         private void DrawTiles(SpriteBatch spriteBatch)
         {
-            // For each tile position
+            int left = (int)Math.Floor(cameraPosition / Tile.Width);
+            int right = left + spriteBatch.GraphicsDevice.Viewport.Width / Tile.Width;
+            right = Math.Min(right, Width - 1);
             for (int y = 0; y < Height; ++y)
             {
-                for (int x = 0; x < Width; ++x)
+                for (int x = left; x <= right; ++x)
                 {
-                    // If there is a visible tile in that position
                     Texture2D texture = tiles[x, y].Texture;
                     if (texture != null)
                     {
-                        // Draw it in screen space.
                         Vector2 position = new Vector2(x, y) * Tile.Size;
                         spriteBatch.Draw(texture, position, Color.White);
                     }
                 }
             }
+        }
+        private void ScrollCamera(Viewport viewport)
+        {
+
+            float marginWidth = viewport.Width * 0.5f;
+            float marginLeft = cameraPosition + marginWidth;
+            float marginRight = cameraPosition + viewport.Width - marginWidth;
+
+            float cameraMovement = 0.0f;
+            if (Player.Position.X < marginLeft)
+                cameraMovement = Player.Position.X - marginLeft;
+            else if (Player.Position.X > marginRight)
+                cameraMovement = Player.Position.X - marginRight;
+
+            float maxCameraPosition = Tile.Width * Width - viewport.Width;
+            cameraPosition = MathHelper.Clamp(cameraPosition + cameraMovement, 0.0f, maxCameraPosition);
         }
 
         #endregion
