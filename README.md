@@ -681,6 +681,7 @@ namespace NimbleGame
 ```
 <a name="layer"></a>
 ##  __Layer.cs:__
+A classe Layer é usada para criar e desenhar camadas de fundo que se deslocam (parallax scrolling) conforme a posição da câmera no jogo muda. Vamos detalhar o código passo a passo:
 
 ```
 using System;
