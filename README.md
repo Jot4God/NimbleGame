@@ -30,11 +30,14 @@ NimbleGame é um jogo 2D desenvolvido em MonoGame com a linguagem C#. Nele, os j
 # __Implementação__
 
 * __Code:__
+    - [ Program.cs](#program)
+    - [ PlatformGame.cs](#game)
     - [ Animation.cs](#animation)
     - [ AnimationPlayer.cs](#animationplayer)  
     - [ Circle.cs](#circle)
     - [ Enemy.cs](#enemy)
     - [ Gem.cs](#gem)
+    - [ Layer.cs](#layer)
     - [ Level.cs](#level)
     - [ Player.cs](#player)
     - [ RectangleExtensions.cs](#rectangleextensions)
