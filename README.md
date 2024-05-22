@@ -20,11 +20,11 @@ NimbleGame é um jogo 2D desenvolvido em MonoGame com a linguagem C#. Nele, os j
 # __Procedimentos do Jogo__
 
 * __Objetivo:__
-    - Passar as Fases todas com a maior pontuaçao possivel e no menor tempo possivel
+    - Conseguir ultrapassar todos os nivéis com menor tempo possível
 * __Controlos:__
-    - Utilizar as teclas WASD ou as setas do teclado
+    - É possível utilizar o WASD/Arrow Keys e o "SPACE" para saltar
 * __Score:__
-    - Com mais coins e menos tempo maior será o score
+    - Com mais coins e menos tempo maior será o score, de seguida compara com o teu amigo para perceber quem ganhou.
       
 <a name="implementaçao"></a>
 # __Implementação__
