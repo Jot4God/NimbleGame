@@ -1134,11 +1134,10 @@ using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
-namespace NimbleGame
+namespace Platformer2D
 {
     class Player
     {
-        // Animations
         private Animation idleAnimation;
         private Animation runAnimation;
         private Animation jumpAnimation;
@@ -1147,7 +1146,6 @@ namespace NimbleGame
         private SpriteEffects flip = SpriteEffects.None;
         private AnimationPlayer sprite;
 
-        // Sounds
         private SoundEffect killedSound;
         private SoundEffect jumpSound;
         private SoundEffect fallSound;
@@ -1164,7 +1162,6 @@ namespace NimbleGame
         }
         bool isAlive;
 
-        // Physics state
         public Vector2 Position
         {
             get { return position; }
@@ -1181,23 +1178,16 @@ namespace NimbleGame
         }
         Vector2 velocity;
 
-       
         private const float MoveAcceleration = 13000.0f;
         private const float MaxMoveSpeed = 1750.0f;
         private const float GroundDragFactor = 0.48f;
         private const float AirDragFactor = 0.58f;
 
-      
         private const float MaxJumpTime = 0.35f;
         private const float JumpLaunchVelocity = -3500.0f;
         private const float GravityAcceleration = 3400.0f;
         private const float MaxFallSpeed = 550.0f;
         private const float JumpControlPower = 0.14f; 
-
-       
-        private const float MoveStickScale = 1.0f;
-        private const float AccelerometerScale = 1.5f;
-        private const Buttons JumpButton = Buttons.A;
 
         public bool IsOnGround
         {
@@ -1207,7 +1197,6 @@ namespace NimbleGame
 
         private float movement;
 
-        // Jumping state
         private bool isJumping;
         private bool wasJumping;
         private float jumpTime;
@@ -1224,7 +1213,6 @@ namespace NimbleGame
             }
         }
 
-
         public Player(Level level, Vector2 position)
         {
             this.level = level;
@@ -1234,29 +1222,24 @@ namespace NimbleGame
             Reset(position);
         }
 
-
         public void LoadContent()
         {
-            // Load animated textures.
             idleAnimation = new Animation(Level.Content.Load<Texture2D>("Sprites/Player/Idle"), 0.1f, true);
             runAnimation = new Animation(Level.Content.Load<Texture2D>("Sprites/Player/Run"), 0.1f, true);
             jumpAnimation = new Animation(Level.Content.Load<Texture2D>("Sprites/Player/Jump"), 0.1f, false);
             celebrateAnimation = new Animation(Level.Content.Load<Texture2D>("Sprites/Player/Celebrate"), 0.1f, false);
             dieAnimation = new Animation(Level.Content.Load<Texture2D>("Sprites/Player/Die"), 0.1f, false);
 
-            // Calculate bounds within texture size.            
             int width = (int)(idleAnimation.FrameWidth * 0.4);
             int left = (idleAnimation.FrameWidth - width) / 2;
             int height = (int)(idleAnimation.FrameHeight * 0.8);
             int top = idleAnimation.FrameHeight - height;
             localBounds = new Rectangle(left, top, width, height);
 
-            // Load sounds.            
             killedSound = Level.Content.Load<SoundEffect>("Sounds/PlayerKilled");
             jumpSound = Level.Content.Load<SoundEffect>("Sounds/PlayerJump");
             fallSound = Level.Content.Load<SoundEffect>("Sounds/PlayerFall");
         }
-
 
         public void Reset(Vector2 position)
         {
@@ -1267,14 +1250,13 @@ namespace NimbleGame
         }
 
 
+
         public void Update(
             GameTime gameTime, 
-            KeyboardState keyboardState, 
-            GamePadState gamePadState, 
-            AccelerometerState accelState,
+            KeyboardState keyboardState,
             DisplayOrientation orientation)
         {
-            GetInput(keyboardState, gamePadState, accelState, orientation);
+            GetInput(keyboardState, orientation);
 
             ApplyPhysics(gameTime);
 
@@ -1290,45 +1272,31 @@ namespace NimbleGame
                 }
             }
 
-            // Clear input.
             movement = 0.0f;
             isJumping = false;
         }
 
         private void GetInput(
-            KeyboardState keyboardState, 
-            GamePadState gamePadState,
-            AccelerometerState accelState, 
+            KeyboardState keyboardState,
             DisplayOrientation orientation)
         {
-            movement = gamePadState.ThumbSticks.Left.X * MoveStickScale;
 
             if (Math.Abs(movement) < 0.5f)
                 movement = 0.0f;
 
-            if (Math.Abs(accelState.Acceleration.Y) > 0.10f)
-            {
-                movement = MathHelper.Clamp(-accelState.Acceleration.Y * AccelerometerScale, -1f, 1f);
 
-                if (orientation == DisplayOrientation.LandscapeRight)
-                    movement = -movement;
-            }
-
-            if (gamePadState.IsButtonDown(Buttons.DPadLeft) ||
-                keyboardState.IsKeyDown(Keys.Left) ||
+            if (keyboardState.IsKeyDown(Keys.Left) ||
                 keyboardState.IsKeyDown(Keys.A))
             {
                 movement = -1.0f;
             }
-            else if (gamePadState.IsButtonDown(Buttons.DPadRight) ||
-                     keyboardState.IsKeyDown(Keys.Right) ||
+            else if (keyboardState.IsKeyDown(Keys.Right) ||
                      keyboardState.IsKeyDown(Keys.D))
             {
                 movement = 1.0f;
             }
 
             isJumping =
-                gamePadState.IsButtonDown(JumpButton) ||
                 keyboardState.IsKeyDown(Keys.Space) ||
                 keyboardState.IsKeyDown(Keys.Up) ||
                 keyboardState.IsKeyDown(Keys.W);
@@ -1349,7 +1317,7 @@ namespace NimbleGame
                 velocity.X *= GroundDragFactor;
             else
                 velocity.X *= AirDragFactor;
-         
+
             velocity.X = MathHelper.Clamp(velocity.X, -MaxMoveSpeed, MaxMoveSpeed);
 
             Position += velocity * elapsed;
@@ -1366,10 +1334,8 @@ namespace NimbleGame
 
         private float DoJump(float velocityY, GameTime gameTime)
         {
-           
             if (isJumping)
             {
-              
                 if ((!wasJumping && IsOnGround) || jumpTime > 0.0f)
                 {
                     if (jumpTime == 0.0f)
@@ -1390,7 +1356,6 @@ namespace NimbleGame
             }
             else
             {
-                // Continues not jumping or cancels a jump in progress
                 jumpTime = 0.0f;
             }
             wasJumping = isJumping;
@@ -1400,7 +1365,6 @@ namespace NimbleGame
 
         private void HandleCollisions()
         {
-
             Rectangle bounds = BoundingRectangle;
             int leftTile = (int)Math.Floor((float)bounds.Left / Tile.Width);
             int rightTile = (int)Math.Ceiling(((float)bounds.Right / Tile.Width)) - 1;
