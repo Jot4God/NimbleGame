@@ -1,0 +1,13 @@
+C:\Users\DEEPGAMING\Desktop\NimbleGame.Samples\Platformer2D\Platformer2D.Core\bin\Debug\net8.0\NimbleGame.Core.deps.json
+C:\Users\DEEPGAMING\Desktop\NimbleGame.Samples\Platformer2D\Platformer2D.Core\bin\Debug\net8.0\NimbleGame.Core.dll
+C:\Users\DEEPGAMING\Desktop\NimbleGame.Samples\Platformer2D\Platformer2D.Core\bin\Debug\net8.0\NimbleGame.Core.pdb
+C:\Users\DEEPGAMING\Desktop\NimbleGame.Samples\Platformer2D\Platformer2D.Core\obj\Debug\net8.0\NimbleGame.Core.csproj.AssemblyReference.cache
+C:\Users\DEEPGAMING\Desktop\NimbleGame.Samples\Platformer2D\Platformer2D.Core\obj\Debug\net8.0\NimbleGame.Core.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\DEEPGAMING\Desktop\NimbleGame.Samples\Platformer2D\Platformer2D.Core\obj\Debug\net8.0\NimbleGame.Core.AssemblyInfoInputs.cache
+C:\Users\DEEPGAMING\Desktop\NimbleGame.Samples\Platformer2D\Platformer2D.Core\obj\Debug\net8.0\NimbleGame.Core.AssemblyInfo.cs
+C:\Users\DEEPGAMING\Desktop\NimbleGame.Samples\Platformer2D\Platformer2D.Core\obj\Debug\net8.0\NimbleGame.Core.csproj.CoreCompileInputs.cache
+C:\Users\DEEPGAMING\Desktop\NimbleGame.Samples\Platformer2D\Platformer2D.Core\obj\Debug\net8.0\NimbleGame.Core.sourcelink.json
+C:\Users\DEEPGAMING\Desktop\NimbleGame.Samples\Platformer2D\Platformer2D.Core\obj\Debug\net8.0\NimbleGame.Core.dll
+C:\Users\DEEPGAMING\Desktop\NimbleGame.Samples\Platformer2D\Platformer2D.Core\obj\Debug\net8.0\refint\NimbleGame.Core.dll
+C:\Users\DEEPGAMING\Desktop\NimbleGame.Samples\Platformer2D\Platformer2D.Core\obj\Debug\net8.0\NimbleGame.Core.pdb
+C:\Users\DEEPGAMING\Desktop\NimbleGame.Samples\Platformer2D\Platformer2D.Core\obj\Debug\net8.0\ref\NimbleGame.Core.dll
