@@ -29,6 +29,18 @@ NimbleGame é um jogo 2D desenvolvido em MonoGame com a linguagem C#. Nele, os j
 <a name="implementaçao"></a>
 # __Implementação__
 
+## __Estrutura de Pastas:__
+
+* __Pong:__
+    - __Content:__
+      * Backgrounds
+      * Levels
+      * Overlays
+      * Sounds
+      * Sprites
+      * Tiles
+     
+        
 * __Code:__
     - [ Program.cs](#program)
     - [ PlatformGame.cs](#game)
@@ -52,7 +64,7 @@ NimbleGame é um jogo 2D desenvolvido em MonoGame com a linguagem C#. Nele, os j
 
 <a name="program"></a>
 ##  __Program.cs:__
-
+O código Program.cs executa o jogo de plataforma através do nome NimbleGame. Além disso, inclui o namespace NimbleGame, este cria uma variável com o nome PlatformerGame. Por fim, é executada a função Run da variável do jogo para iniciar o loop principal e a execução do jogo.
 ```
 using NimbleGame;
 
