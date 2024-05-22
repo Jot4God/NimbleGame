@@ -50,6 +50,227 @@ NimbleGame é um jogo 2D desenvolvido em MonoGame com a linguagem C#. Nele, os j
 <a name="analise"></a>
 # __Interpretação do Código-Fonte__
 
+<a name="program"></a>
+##  __Program.cs:__
+
+```
+using NimbleGame;
+
+using var game = new PlatformerGame();
+game.Run();
+```
+
+<a name="game"></a>
+##  __PlatformerGame.cs:__
+
+```
+using System;
+using System.IO;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Input.Touch;
+using Microsoft.Xna.Framework.Content;
+
+
+namespace NimbleGame
+{
+    public class PlatformerGame : Microsoft.Xna.Framework.Game
+    {
+        private GraphicsDeviceManager graphics;
+        private SpriteBatch spriteBatch;
+        Vector2 baseScreenSize = new Vector2(800, 480);
+        private Matrix globalTransformation;
+        int backbufferWidth, backbufferHeight;
+
+        private SpriteFont hudFont;
+
+        private Texture2D winOverlay;
+        private Texture2D loseOverlay;
+        private Texture2D diedOverlay;
+
+        private int levelIndex = -1;
+        private Level level;
+        private bool wasContinuePressed;
+
+        private static readonly TimeSpan WarningTime = TimeSpan.FromSeconds(30);
+
+        private const int numberOfLevels = 3;
+
+        public PlatformerGame()
+        {
+            graphics = new GraphicsDeviceManager(this);
+
+            graphics.IsFullScreen = false;
+
+            //graphics.PreferredBackBufferWidth = 800;
+            //graphics.PreferredBackBufferHeight = 480;
+            graphics.SupportedOrientations = DisplayOrientation.LandscapeLeft | DisplayOrientation.LandscapeRight;
+
+        }
+
+        protected override void LoadContent()
+        {
+            this.Content.RootDirectory = "Content";
+
+            spriteBatch = new SpriteBatch(GraphicsDevice);
+
+            hudFont = Content.Load<SpriteFont>("Fonts/Hud");
+
+            winOverlay = Content.Load<Texture2D>("Overlays/you_win");
+            loseOverlay = Content.Load<Texture2D>("Overlays/you_lose");
+            diedOverlay = Content.Load<Texture2D>("Overlays/you_died");
+
+            ScalePresentationArea();
+
+            LoadNextLevel();
+        }
+
+        public void ScalePresentationArea()
+        {
+            backbufferWidth = GraphicsDevice.PresentationParameters.BackBufferWidth;
+            backbufferHeight = GraphicsDevice.PresentationParameters.BackBufferHeight;
+            float horScaling = backbufferWidth / baseScreenSize.X;
+            float verScaling = backbufferHeight / baseScreenSize.Y;
+            Vector3 screenScalingFactor = new Vector3(horScaling, verScaling, 1);
+            globalTransformation = Matrix.CreateScale(screenScalingFactor);
+            System.Diagnostics.Debug.WriteLine("Screen Size - Width[" + GraphicsDevice.PresentationParameters.BackBufferWidth + "] Height [" + GraphicsDevice.PresentationParameters.BackBufferHeight + "]");
+        }
+
+        
+        protected override void Update(GameTime gameTime)
+        {
+            if (backbufferHeight != GraphicsDevice.PresentationParameters.BackBufferHeight ||
+                backbufferWidth != GraphicsDevice.PresentationParameters.BackBufferWidth)
+            {
+                ScalePresentationArea();
+            }
+            HandleInput(gameTime);
+
+            level.Update(gameTime, keyboardState,  Window.CurrentOrientation);
+
+            if (level.Player.Velocity != Vector2.Zero)
+
+            base.Update(gameTime);
+        }
+
+        private void HandleInput(GameTime gameTime)
+        {
+            keyboardState = Keyboard.GetState();
+
+            bool continuePressed =
+                keyboardState.IsKeyDown(Keys.Space);
+
+            if (!wasContinuePressed && continuePressed)
+            {
+                if (!level.Player.IsAlive)
+                {
+                    level.StartNewLife();
+                }
+                else if (level.TimeRemaining == TimeSpan.Zero)
+                {
+                    if (level.ReachedExit)
+                        LoadNextLevel();
+                    else
+                        ReloadCurrentLevel();
+                }
+            }
+
+            wasContinuePressed = continuePressed;
+
+        }
+
+        private void LoadNextLevel()
+        {
+            levelIndex = (levelIndex + 1) % numberOfLevels;
+
+
+            if (level != null)
+                level.Dispose();
+
+
+            string levelPath = string.Format("Content/Levels/{0}.txt", levelIndex);
+            using (Stream fileStream = TitleContainer.OpenStream(levelPath))
+                level = new Level(Services, fileStream, levelIndex);
+        }
+
+        private void ReloadCurrentLevel()
+        {
+            --levelIndex;
+            LoadNextLevel();
+        }
+
+        protected override void Draw(GameTime gameTime)
+        {
+            graphics.GraphicsDevice.Clear(Color.CornflowerBlue);
+
+            level.Draw(gameTime, spriteBatch);
+
+            DrawHud();
+
+            base.Draw(gameTime);
+        }
+
+        private void DrawHud()
+        {
+            spriteBatch.Begin();
+            Rectangle titleSafeArea = GraphicsDevice.Viewport.TitleSafeArea;
+            Vector2 hudLocation = new Vector2(titleSafeArea.X, titleSafeArea.Y);
+            //Vector2 center = new Vector2(titleSafeArea.X + titleSafeArea.Width / 2.0f,
+            //                             titleSafeArea.Y + titleSafeArea.Height / 2.0f);
+
+            Vector2 center = new Vector2(baseScreenSize.X / 2, baseScreenSize.Y / 2);
+
+            string timeString = "TIME: " + level.TimeRemaining.Minutes.ToString("00") + ":" + level.TimeRemaining.Seconds.ToString("00");
+            Color timeColor;
+            if (level.TimeRemaining > WarningTime ||
+                level.ReachedExit ||
+                (int)level.TimeRemaining.TotalSeconds % 2 == 0)
+            {
+                timeColor = Color.LightPink;
+            }
+            else
+            {
+                timeColor = Color.MediumPurple;
+            }
+            DrawShadowedString(hudFont, timeString, hudLocation, timeColor);
+
+            float timeHeight = hudFont.MeasureString(timeString).Y;
+            DrawShadowedString(hudFont, "SCORE: " + level.Score.ToString(), hudLocation + new Vector2(0.0f, timeHeight * 1.2f), Color.Pink);
+           
+            Texture2D status = null;
+            if (level.TimeRemaining == TimeSpan.Zero)
+            {
+                if (level.ReachedExit)
+                {
+                    status = winOverlay;
+                }
+                else
+                {
+                    status = loseOverlay;
+                }
+            }
+            else if (!level.Player.IsAlive)
+            {
+                status = diedOverlay;
+            }
+
+            if (status != null)
+            {
+                Vector2 statusSize = new Vector2(status.Width, status.Height);
+                spriteBatch.Draw(status, center - statusSize / 2, Color.White);
+            }
+            spriteBatch.End();
+        }
+
+        private void DrawShadowedString(SpriteFont font, string value, Vector2 position, Color color)
+        {
+            spriteBatch.DrawString(font, value, position + new Vector2(1.0f, 1.0f), Color.Black);
+            spriteBatch.DrawString(font, value, position, color);
+        }
+    }
+}
+```
 
 <a name="animation"></a>
 ## 	__Animation.cs:__
@@ -444,6 +665,47 @@ namespace NimbleGame
 }
 
 ```
+<a name="layer"></a>
+##  __Layer.cs:__
+
+```
+using System;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Content;
+
+
+namespace NimbleGame
+{
+    class Layer
+    {
+        public Texture2D[] Textures { get; private set; }
+        public float ScrollRate { get; private set; }
+        public Layer(ContentManager content, string basePath, float scrollRate)
+        {
+            Textures = new Texture2D[3];
+            for (int i = 0; i < 3; ++i)
+                Textures[i] = content.Load<Texture2D>(basePath + "_" + i);
+
+            ScrollRate = scrollRate;
+        }
+        public void Draw(SpriteBatch spriteBatch, float cameraPosition)
+        {
+            int segmentWidth = Textures[0].Width;
+
+            float x = cameraPosition * ScrollRate;
+            int leftSegment = (int)Math.Floor(x / segmentWidth);
+            int rightSegment = leftSegment + 1;
+            x = (x / segmentWidth - leftSegment) * -segmentWidth;
+
+            spriteBatch.Draw(Textures[leftSegment % Textures.Length], new Vector2(x, 0.0f), Color.White);
+            spriteBatch.Draw(Textures[rightSegment % Textures.Length], new Vector2(x + segmentWidth, 0.0f), Color.White);
+        }
+    }
+}
+```
+
+
 <a name="level"></a>
 ## 	__Level.cs:__
 A classe Level representa um nível num jogo de plataforma 2D desenvolvido com a plataforma Microsoft XNA. Ela gerencia a estrutura física do nível, incluindo a disposição dos blocos de terreno, a localização do jogador, inimigos, gemas e a saída. Além disso, controla a lógica do jogo, como verificar colisões, atualizar o estado dos objetos no mundo, calcular a pontuação do jogador e verificar se o jogador alcançou a saída do nível. O nível também lida com o carregamento de conteúdo, como texturas e sons, e a renderização dos elementos na tela. É essencialmente o coração do jogo, onde todas as interações e eventos acontecem.
