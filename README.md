@@ -72,6 +72,7 @@ O código Program.cs executa o jogo de plataforma através do nome NimbleGame. A
 
 <a name="game"></a>
 ##  __PlatformerGame.cs:__
+Este código configura e gerencia um jogo de plataforma 2D, lidando com gráficos, lógica de jogo, entrada de usuário e desenho na tela. Ele carrega níveis, atualiza o estado do jogo e exibe informações relevantes ao jogador, proporcionando uma experiência de jogo completa.
 
 <a name="animation"></a>
 ## 	__Animation.cs:__
