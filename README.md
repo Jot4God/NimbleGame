@@ -63,6 +63,18 @@ NimbleGame é um jogo 2D desenvolvido em MonoGame com a linguagem C#. Nele, os j
       
  __Code:__ É uma pasta com o código-fonte do jogo.
 
+## __Melhorias:__
+
+* __Adicionar sistema de ataque com os inimigos;__
+* __Adicionar sistema que cria niveis novos automaticamente;__
+* __Adicionar um menu ao jogo;__
+* __Adicionar uma interface de som e uma leaderboard;__
+
+
+<a name="conclusao"></a>
+# __Conclusão:__
+Em suma, o desenvolvimento deste jogo para além de nos mostrar uma parte desconhecida no processo criativo do jogo, por vezes em certos momentos pode ser stressante. Apesar disso, o desenvolvimento do NimbleGame foi um trabalho extremamente interessante e pertinente para o curso. Este projeto não apenas proporcionou uma oportunidade prática para aplicar conceitos de programação em C# e o uso do framework MonoGame, como também permitiu explorar áreas como design de sprites, efeitos sonoros e mecânicas de jogo. 
+
 <a name="analise"></a>
 # __Interpretação do Código-Fonte__
 
@@ -124,6 +136,3 @@ A classe RectangleExtensions oferece métodos úteis para trabalhar com retângu
 ## 	__Tile.cs:__
 Este excerto de código define uma estrutura Tile e um TileCollision utilizados para representar os diferentes tipos de blocos. A estrutura Tile tem dois campos: Texture, que guarda a textura do bloco, e Collision, que indica o tipo de colisão do bloco (Passable, Impassable ou Platform). A estrutura também define as dimensões padrão de um bloco (Width e Height) e disponibiliza a constante Size para facilitar o acesso às dimensões. O enum TileCollision especifica os possíveis tipos de colisão que um bloco pode ter, como Passable (transponível), Impassable (impossível de transpor) e Platform (plataforma). Estes elementos são úteis para a construção e gestão do ambiente do jogo, permitindo a definição de diferentes comportamentos e interações com os blocos.
 
-<a name="conclusao"></a>
-# __Conclusão:__
-Em suma, o desenvolvimento deste jogo para além de nos mostrar uma parte desconhecida no processo criativo do jogo, por vezes em certos momentos pode ser stressante. Apesar disso, o desenvolvimento do NimbleGame foi um trabalho extremamente interessante e pertinente para o curso. Este projeto não apenas proporcionou uma oportunidade prática para aplicar conceitos de programação em C# e o uso do framework MonoGame, como também permitiu explorar áreas como design de sprites, efeitos sonoros e mecânicas de jogo. 
